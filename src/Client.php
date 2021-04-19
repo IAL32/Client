@@ -33,6 +33,7 @@ use Gitlab\Api\ProjectNamespaces;
 use Gitlab\Api\Projects;
 use Gitlab\Api\Repositories;
 use Gitlab\Api\RepositoryFiles;
+use Gitlab\Api\Search;
 use Gitlab\Api\Schedules;
 use Gitlab\Api\Snippets;
 use Gitlab\Api\SystemHooks;
@@ -288,6 +289,14 @@ class Client
     public function repositoryFiles(): RepositoryFiles
     {
         return new RepositoryFiles($this);
+    }
+
+    /**
+     * @return Search
+     */
+    public function search(): Search
+    {
+        return new Search($this);
     }
 
     /**

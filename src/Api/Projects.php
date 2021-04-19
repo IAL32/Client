@@ -77,6 +77,8 @@ class Projects extends AbstractApi
             'id', 'name', 'path', 'created_at', 'updated_at', 'last_activity_at',
             'repository_size', 'storage_size', 'packages_size', 'wiki_size',
         ];
+        $resolver->setDefined('pagination');
+        $resolver->setDefined('per_page');
         $resolver->setDefined('order_by')
             ->setAllowedValues('order_by', $orderBy)
         ;
@@ -419,15 +421,15 @@ class Projects extends AbstractApi
      */
     public function createPipeline($project_id, string $commit_ref, array $variables = null)
     {
-        $parameters = [
-            'ref' => $commit_ref,
-        ];
+        $parameters = [];
 
         if (null !== $variables) {
             $parameters['variables'] = $variables;
         }
 
-        return $this->post($this->getProjectPath($project_id, 'pipeline'), $parameters);
+        return $this->post($this->getProjectPath($project_id, 'pipeline'), $parameters, [], [], [
+            'ref' => $commit_ref,
+        ]);
     }
 
     /**
